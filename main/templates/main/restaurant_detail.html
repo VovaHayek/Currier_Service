@@ -1,0 +1,25 @@
+{% extends 'home/wrapper.html' %}
+
+{% block content %}
+    <div class="container-fluid p-0 overflow-hidden" style="height: 100vh;">
+        <img src="{{object.restaurant_image.url}}" class="img-fluid" style="filter: brightness(80%); z-index: 0;">
+    </div>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-10 d-flex flex-column justify-content-center">
+                {% for dish in menu %}
+                    <div class="d-flex flex-row w-100 my-2 border border-secondary rounded-3">
+                        <div class="w-50">
+                            <img src="{{dish.dish_image.url}}" class="img-fluid">
+                        </div>
+                        <div class="d-flex flex-column w-50 h-100 p-2">
+                            <h1>{{dish.dish_name}}</h1>
+                            <p>{{dish.dish_desc}}</p>
+                            <button class="btn btn-primary align-self-end me-2 mt-auto">{{dish.price}}$<br>Add To Cart</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

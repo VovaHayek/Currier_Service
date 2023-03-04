@@ -1,0 +1,20 @@
+{% extends 'home/wrapper.html' %}
+{% load main_extras %}
+{% block content %}
+
+    {% last_three_elements %}
+
+    <div class="container-fluid" style="margin-top: 9vh;">
+        <div class="row d-flex justify-content-center">
+            {% for restaurant in restaurants %}
+            <div class="col-md-5 col-lg-3 m-1 d-flex justify-content-center">
+                    <div class="w-100 overflow-hidden rounded-4" style="border: 1px solid #777;" onclick="location.href='/restaurant/{{restaurant.id}}'">
+                        <img src="{{restaurant.restaurant_image.url}}" class="img-fluid rounded-top" style="height: 60%; min-width: 100%;">
+                        <h1 class="text-center m-1">{{restaurant.restaurant_name}}</h1>
+                        <p class="text-secondary m-3">{{restaurant.address}} | {{restaurant.city}}</p>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

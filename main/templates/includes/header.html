@@ -1,7 +1,22 @@
+{% load static %}
 <div class="container position-absolute top-0 start-50 translate-middle-x p-2" style="z-index: 2;">
     <div class="row d-flex justify-content-between flex-wrap">
-        <div class="col-sm-12 col-lg-2 d-flex justify-content-between align-items-center"><a href="/register/" class="btn btn-danger">Sign Up</a><a href="/login/" class="btn btn-primary">Sign In</a></div>
-        <div class="col col-lg-2"><h1 class="text-center" style="font-family: 'Pacifico', cursive;">Currier</h1></div>
+        {% if user.is_authenticated %}
+            {% if not user.user_image %}
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <a href="/profile/{{user.id}}" style="width: 30%;"><img src="{% static 'images/unknown.jpg' %}" class="img-fluid rounded-circle" style="width: 30%;"></a>
+                    <a href="/logout/" class="btn btn-danger ms-2">Logout</a>
+                </div>
+            {% else %}
+                <div class="col-sm-3 col-lg-2">
+                    <a href="/profile/{{user.id}}"><img src="{{ user.user_image.url }}" class="img-fluid rounded-circle" style="width: 30%;"></a>
+                    <a href="/logout/" class="btn btn-danger ms-2">Logout</a>
+                </div>
+            {% endif %}
+        {% else %}
+        <div class="col-sm-12 col-lg-2 d-flex justify-content-between align-items-center"><a href="/registration/" class="btn btn-danger">Sign Up</a><a href="/login/" class="btn btn-primary">Sign In</a></div>
+        {% endif %}
+        <div class="col-sm-4 col-lg-2"><h1 class="text-center" style="font-family: 'Pacifico', cursive;">Currier</h1></div>
         <div class="col-sm-12 col-lg-4 d-flex justify-content-center align-items-center"><input type="text" class="w-100 h-75" placeholder="Search..." style="background-color: transparent; backdrop-filter: blur(3px); border: 1px solid #999; border-radius: 50px; padding: 10px;"></div>
     </div>
 </div>

@@ -1,21 +1,38 @@
 {% extends 'home/wrapper.html' %}
 
 {% block content %}
-    <div class="container-fluid p-0 overflow-hidden" style="height: 100vh;">
-        <img src="{{object.restaurant_image.url}}" class="img-fluid" style="filter: brightness(80%); z-index: 0;">
+
+    <div class="container-fluid position-fixed w-100 h-100 d-flex justify-content-center align-items-center d-none" id="order" style="z-index: 3; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="row d-flex justify-content-center w-100 h-75">
+            <div class="col-sm-11 col-md-9 col-lg-6" style="background-color: #eee; max-height: 85vh;">
+                <h1 class="text-center" style="font-family: 'Fredoka One', cursive;">Order</h1>
+                <div class="h-75" id="order-menu" style="overflow-y: scroll;"></div>
+                <div class="d-flex justify-content-center m-2" id="amount"><h1>0$</h1></div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary w-50 m-1" disabled="disabled">Back</button>
+                    <button class="btn btn-primary w-50 m-1">Next</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="container mt-5">
+
+    <button class="btn btn-danger m-3 p-3 position-fixed end-0 bottom-0 w-sm-100" id="order-button" style="z-index: 3;">Show Order</button>
+    <div class="container-fluid p-0 overflow-hidden" style="height: auto; max-height: 100vh;">
+        <img src="{{object.restaurant_image.url}}" class="img-fluid" style="filter: brightness(80%); z-index: 0;">
+        <button class="btn bg-transparent border border-4 border-dark m-5 p-3 position-absolute bottom-0 end-0 translate-middle fs-3 fw-bold" style="backdrop-filter: blur(9px); z-index: 3; margin-right: 100px !important;">Show Menu &#8595;</button>
+    </div>
+    <div class="container mt-1 mb-5 pb-4">
         <div class="row d-flex justify-content-center">
-            <div class="col-10 d-flex flex-column justify-content-center">
+            <div class="col-sm-12 col-lg-10 d-flex flex-column justify-content-center">
                 {% for dish in menu %}
                     <div class="d-flex flex-row w-100 my-2 border border-secondary rounded-3">
                         <div class="w-50">
                             <img src="{{dish.dish_image.url}}" class="img-fluid">
                         </div>
                         <div class="d-flex flex-column w-50 h-100 p-2">
-                            <h1>{{dish.dish_name}}</h1>
-                            <p>{{dish.dish_desc}}</p>
-                            <button class="btn btn-primary align-self-end me-2 mt-auto">{{dish.price}}$<br>Add To Cart</button>
+                            <h1 id="dish-name">{{dish.dish_name}}</h1>
+                            <p id="dish-description">{{dish.dish_desc}}</p>
+                            <button class="btn btn-primary align-self-end me-2 mt-auto" id="add-to-cart-{{dish.id}}" value="{{dish.id}},{{dish.dish_name}},{{dish.price}}" onclick="addToCart(this)">{{dish.price}}$<br>Add To Cart</button>
                         </div>
                     </div>
                 {% endfor %}
